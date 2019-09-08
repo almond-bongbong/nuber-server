@@ -4,13 +4,26 @@ GraphQL, Typescript, NodeJS
 
 ## Resolvers
 
-### Main
+### Public Resolvers
 
-- [ ] Sign In with Faebook
-- [ ] Sign In with Email
-- [ ] Starts Phone Number Verification
-- [ ] Complete Phone Number Verification
+- [x] Sign In / Sign Up with Faebook
+- [x] Sign In with Email
+- [x] Starts Phone Number Verification
+- [x] Complete Phone Number Verification
 - [ ] Sign UP With Email
+
+--- 
+
+### Authentication
+
+- [ ] Generate JWT
+- [ ] Verify JWT
+
+---
+
+### Private Resolvers
+
+- [ ] Verify Email
 - [ ] Get My Profile
 - [ ] Update My Profile
 - [ ] Toggle Driving Mode
@@ -20,9 +33,6 @@ GraphQL, Typescript, NodeJS
 - [ ] Delete Place
 - [ ] See Nearby Drivers
 - [ ] Subscribe to Nearby Drivers
-
-### Ride
-
 - [ ] Request a Ride
 - [ ] Get Nearby Ride Requests
 - [ ] Subscribe to Nearby Ride Requests
@@ -30,3 +40,10 @@ GraphQL, Typescript, NodeJS
 - [ ] Get Chat Room Messages
 - [ ] Subscribe to Chat Room Messages
 - [ ] Send a Chat Message
+
+
+
+## Code Challenge
+
+- [ ] Get Ride History
+- [ ] See Ride Detail

@@ -19,12 +19,12 @@ type User {
     isDriving: Boolean!
     isRiding: Boolean!
     isTaken: Boolean!
-    lastLng: Float!
+    lastLng: Float
     lastLat: Float
     lastOrientation: Float
+    fbId: String
     chat: Chat
     messages: [Message]
-    verifications: [Verification]
     ridesAsPassenger: [Ride]
     ridesAsDriver: [Ride]
     createdAt: String!

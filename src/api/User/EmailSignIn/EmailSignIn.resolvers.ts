@@ -28,7 +28,7 @@ const resolvers:Resolvers = {
         } else {
           return {
             ok: false,
-            error: 'Wrong password',
+            error: 'Wrong email or password',
             token: null,
           }
         }

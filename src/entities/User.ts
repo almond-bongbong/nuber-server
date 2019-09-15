@@ -42,7 +42,7 @@ class User extends BaseEntity {
   @Column({ type: 'text' })
   lastName:string;
 
-  @Column({ type: 'text', enum: ['KAKAO', 'FACEBOOK'] })
+  @Column({ type: 'text', enum: ['KAKAO', 'FACEBOOK', 'EMAIL'] })
   platform:accountPlatform;
 
   @Column({ type: 'int', nullable: true })

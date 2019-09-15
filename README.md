@@ -10,21 +10,22 @@ GraphQL, Typescript, NodeJS
 - [x] Sign In with Email
 - [x] Starts Phone Number Verification
 - [x] Complete Phone Number Verification
-- [ ] Sign UP With Email
+- [x] Sign UP With Email
 
 --- 
 
 ### Authentication
 
-- [ ] Generate JWT
-- [ ] Verify JWT
+- [x] Generate JWT
+- [x] Verify JWT
 
 ---
 
 ### Private Resolvers
 
-- [ ] Verify Email
-- [ ] Get My Profile
+- [x] Get My Profile
+- [x] Request Email Verification
+- [x] Verify Email
 - [ ] Update My Profile
 - [ ] Toggle Driving Mode
 - [ ] Report Location / Orientation

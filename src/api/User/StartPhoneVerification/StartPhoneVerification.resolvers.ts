@@ -7,13 +7,14 @@ const resolvers:Resolvers = {
   Mutation: {
     StartPhoneVerification: async (_, args:StartPhoneVerificationMutationArgs):Promise<StartPhoneVerificationResponse> => {
       const { phoneNumber } = args;
+      const convertedPhoneNumber = phoneNumber.replace(/-/g, '');
       try {
-        const existingVerification = await Verification.findOne({ payload: phoneNumber });
+        const existingVerification = await Verification.findOne({ payload: convertedPhoneNumber });
         if (existingVerification) {
           await existingVerification.remove();
         }
         const newVerification = await Verification.create({
-          payload: phoneNumber,
+          payload: convertedPhoneNumber,
           target: 'PHONE',
         }).save();
         await sendVerificationSMS(newVerification.payload, newVerification.key);

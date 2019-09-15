@@ -8,8 +8,9 @@ const resolvers:Resolvers = {
   Mutation: {
     CompletePhoneVerification: async (_, args:CompletePhoneVerificationMutationArgs):Promise<CompletePhoneVerificationResponse> => {
       const { phoneNumber, key } = args;
+      const convertedPhoneNumber = phoneNumber.replace(/-/g, '');
       try {
-        const verification = await Verification.findOne({ payload: phoneNumber, key });
+        const verification = await Verification.findOne({ payload: convertedPhoneNumber, key });
         if (!verification) {
           return {
             ok: false,

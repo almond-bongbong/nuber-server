@@ -6,5 +6,5 @@ type StartPhoneVerificationResponse {
 type Mutation {
     StartPhoneVerification(
         phoneNumber: String!
-    ):StartPhoneVerificationResponse!
+    ): StartPhoneVerificationResponse!
 }

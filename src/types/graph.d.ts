@@ -1,15 +1,29 @@
-export const typeDefs = ["type Chat {\n  id: Int!\n  messages: [Message]\n  participants: [User]\n  createdAt: String!\n  updatedAt: String\n}\n\ntype Message {\n  id: Int!\n  text: String!\n  chat: Chat!\n  user: User!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype Place {\n  id: Int!\n  name: String!\n  lat: Float!\n  lng: Float!\n  address: String!\n  isFav: Boolean!\n  user: User!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype Ride {\n  id: Int!\n  status: String!\n  pickUpAddress: String!\n  pickUpLat: String!\n  pickUpLng: String!\n  dropOffAddress: String!\n  dropOffLat: String!\n  dropOffLng: String!\n  price: Float!\n  distance: String!\n  duration: String!\n  passenger: User!\n  driver: User!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype AddPlaceResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Mutation {\n  AddPlace(name: String!, lat: Float!, lng: Float!, address: String!, isFav: Boolean!): AddPlaceResponse!\n  CompleteEmailVerification(key: String!): CompleteEmailVerificationResponse\n  CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse\n  EditPlace(placeId: Int!, name: String, isFav: Boolean): EditPlaceResponse!\n  EmailSignIn(email: String!, password: String!): EmailSignInResponse\n  EmailSignUp(firstName: String!, lastName: String!, email: String!, password: String!, profilePhoto: String!, age: Int!, phoneNumber: String!): EmailSignUpResponse!\n  FacebookConnect(firstName: String!, lastName: String!, email: String, fbId: String!): FacebookConnectResponse\n  ReportMovement(orientation: Float, lat: Float, lng: Float): ReportMovementResponse!\n  RequestEmailVerification: RequestEmailVerificationResponse!\n  StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!\n  ToggleDrivingMode: ToggleDrivingModeResponse!\n  UpdateMyProfile(firstName: String, lastName: String, email: String, password: String, profilePhoto: String, age: Int): UpdateMyProfileResponse!\n}\n\ntype CompleteEmailVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype CompletePhoneVerificationResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype EditPlaceResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype EmailSignInResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype EmailSignUpResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype FacebookConnectResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype GetMyProfileResponse {\n  ok: Boolean!\n  error: String\n  user: User\n}\n\ntype Query {\n  GetMyProfile: GetMyProfileResponse!\n  user: User\n}\n\ntype ReportMovementResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype RequestEmailVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n\nenum PlatForm {\n  FACEBOOK\n  KAKAO\n}\n\ntype User {\n  id: Int!\n  email: String\n  verifiedEmail: Boolean!\n  firstName: String!\n  lastName: String!\n  platform: PlatForm\n  age: Int\n  phoneNumber: String\n  verifiedPhoneNumber: Boolean!\n  profilePhoto: String\n  fullName: String!\n  isDriving: Boolean!\n  isRiding: Boolean!\n  isTaken: Boolean!\n  lastLng: Float\n  lastLat: Float\n  lastOrientation: Float\n  fbId: String\n  chat: Chat\n  messages: [Message]\n  ridesAsPassenger: [Ride]\n  ridesAsDriver: [Ride]\n  places: [Place]\n  createdAt: String!\n  updatedAt: String\n}\n\ntype StartPhoneVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype ToggleDrivingModeResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype UpdateMyProfileResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Verification {\n  id: Int!\n  target: String!\n  payload: String!\n  key: String!\n  verified: Boolean!\n  createdAt: String!\n  updatedAt: String\n}\n"];
+export const typeDefs = ["type Chat {\n  id: Int!\n  messages: [Message]\n  participants: [User]\n  createdAt: String!\n  updatedAt: String\n}\n\ntype Message {\n  id: Int!\n  text: String!\n  chat: Chat!\n  user: User!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype AddPlaceResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Mutation {\n  AddPlace(name: String!, lat: Float!, lng: Float!, address: String!, isFav: Boolean!): AddPlaceResponse!\n  DeletePlace(placeId: Int!): DeletePlaceResponse!\n  EditPlace(placeId: Int!, name: String, isFav: Boolean): EditPlaceResponse!\n  EmailSignIn(email: String!, password: String!): EmailSignInResponse\n  EmailSignUp(firstName: String!, lastName: String!, email: String!, password: String!, profilePhoto: String!, age: Int!, phoneNumber: String!): EmailSignUpResponse!\n  FacebookConnect(firstName: String!, lastName: String!, email: String, fbId: String!): FacebookConnectResponse\n  ReportMovement(orientation: Float, lat: Float, lng: Float): ReportMovementResponse!\n  ToggleDrivingMode: ToggleDrivingModeResponse!\n  UpdateMyProfile(firstName: String, lastName: String, email: String, password: String, profilePhoto: String, age: Int): UpdateMyProfileResponse!\n  CompleteEmailVerification(key: String!): CompleteEmailVerificationResponse\n  CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse\n  RequestEmailVerification: RequestEmailVerificationResponse!\n  StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!\n}\n\ntype DeletePlaceResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype EditPlaceResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype GetMyPlacesResponse {\n  ok: Boolean!\n  error: String\n  places: [Place]\n}\n\ntype Query {\n  GetMyPlaces: GetMyPlacesResponse!\n  GetMyProfile: GetMyProfileResponse!\n  GetNearbyDrivers: GetNearbyDriversResponse\n  user: User\n}\n\ntype Place {\n  id: Int!\n  name: String!\n  lat: Float!\n  lng: Float!\n  address: String!\n  isFav: Boolean!\n  user: User!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype Ride {\n  id: Int!\n  status: String!\n  pickUpAddress: String!\n  pickUpLat: Float!\n  pickUpLng: Float!\n  dropOffAddress: String!\n  dropOffLat: Float!\n  dropOffLng: Float!\n  price: Float!\n  distance: String!\n  duration: String!\n  passenger: User!\n  driver: User!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype Subscription {\n  DriverSubscription: User\n}\n\ntype EmailSignInResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype EmailSignUpResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype FacebookConnectResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype GetMyProfileResponse {\n  ok: Boolean!\n  error: String\n  user: User\n}\n\ntype GetNearbyDriversResponse {\n  ok: Boolean!\n  error: String\n  drivers: [User]\n}\n\ntype ReportMovementResponse {\n  ok: Boolean!\n  error: String\n}\n\nenum PlatForm {\n  FACEBOOK\n  KAKAO\n  EMAIL\n}\n\ntype User {\n  id: Int!\n  email: String\n  verifiedEmail: Boolean!\n  firstName: String!\n  lastName: String!\n  platform: PlatForm\n  age: Int\n  phoneNumber: String\n  verifiedPhoneNumber: Boolean!\n  profilePhoto: String\n  fullName: String!\n  isDriving: Boolean!\n  isRiding: Boolean!\n  isTaken: Boolean!\n  lastLng: Float\n  lastLat: Float\n  lastOrientation: Float\n  fbId: String\n  chat: Chat\n  messages: [Message]\n  ridesAsPassenger: [Ride]\n  ridesAsDriver: [Ride]\n  places: [Place]\n  createdAt: String!\n  updatedAt: String\n}\n\ntype ToggleDrivingModeResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype UpdateMyProfileResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype CompleteEmailVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype CompletePhoneVerificationResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype RequestEmailVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Verification {\n  id: Int!\n  target: String!\n  payload: String!\n  key: String!\n  verified: Boolean!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype StartPhoneVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n"];
 /* tslint:disable */
 
 export interface Query {
+  GetMyPlaces: GetMyPlacesResponse;
   GetMyProfile: GetMyProfileResponse;
+  GetNearbyDrivers: GetNearbyDriversResponse | null;
   user: User | null;
 }
 
-export interface GetMyProfileResponse {
+export interface GetMyPlacesResponse {
   ok: boolean;
   error: string | null;
-  user: User | null;
+  places: Array<Place> | null;
+}
+
+export interface Place {
+  id: number;
+  name: string;
+  lat: number;
+  lng: number;
+  address: string;
+  isFav: boolean;
+  user: User;
+  createdAt: string;
+  updatedAt: string | null;
 }
 
 export interface User {
@@ -40,7 +54,7 @@ export interface User {
   updatedAt: string | null;
 }
 
-export type PlatForm = "FACEBOOK" | "KAKAO";
+export type PlatForm = "FACEBOOK" | "KAKAO" | "EMAIL";
 
 export interface Chat {
   id: number;
@@ -63,11 +77,11 @@ export interface Ride {
   id: number;
   status: string;
   pickUpAddress: string;
-  pickUpLat: string;
-  pickUpLng: string;
+  pickUpLat: number;
+  pickUpLng: number;
   dropOffAddress: string;
-  dropOffLat: string;
-  dropOffLng: string;
+  dropOffLat: number;
+  dropOffLng: number;
   price: number;
   distance: string;
   duration: string;
@@ -77,31 +91,32 @@ export interface Ride {
   updatedAt: string | null;
 }
 
-export interface Place {
-  id: number;
-  name: string;
-  lat: number;
-  lng: number;
-  address: string;
-  isFav: boolean;
-  user: User;
-  createdAt: string;
-  updatedAt: string | null;
+export interface GetMyProfileResponse {
+  ok: boolean;
+  error: string | null;
+  user: User | null;
+}
+
+export interface GetNearbyDriversResponse {
+  ok: boolean;
+  error: string | null;
+  drivers: Array<User> | null;
 }
 
 export interface Mutation {
   AddPlace: AddPlaceResponse;
-  CompleteEmailVerification: CompleteEmailVerificationResponse | null;
-  CompletePhoneVerification: CompletePhoneVerificationResponse | null;
+  DeletePlace: DeletePlaceResponse;
   EditPlace: EditPlaceResponse;
   EmailSignIn: EmailSignInResponse | null;
   EmailSignUp: EmailSignUpResponse;
   FacebookConnect: FacebookConnectResponse | null;
   ReportMovement: ReportMovementResponse;
-  RequestEmailVerification: RequestEmailVerificationResponse;
-  StartPhoneVerification: StartPhoneVerificationResponse;
   ToggleDrivingMode: ToggleDrivingModeResponse;
   UpdateMyProfile: UpdateMyProfileResponse;
+  CompleteEmailVerification: CompleteEmailVerificationResponse | null;
+  CompletePhoneVerification: CompletePhoneVerificationResponse | null;
+  RequestEmailVerification: RequestEmailVerificationResponse;
+  StartPhoneVerification: StartPhoneVerificationResponse;
 }
 
 export interface AddPlaceMutationArgs {
@@ -112,13 +127,8 @@ export interface AddPlaceMutationArgs {
   isFav: boolean;
 }
 
-export interface CompleteEmailVerificationMutationArgs {
-  key: string;
-}
-
-export interface CompletePhoneVerificationMutationArgs {
-  phoneNumber: string;
-  key: string;
+export interface DeletePlaceMutationArgs {
+  placeId: number;
 }
 
 export interface EditPlaceMutationArgs {
@@ -155,10 +165,6 @@ export interface ReportMovementMutationArgs {
   lng: number | null;
 }
 
-export interface StartPhoneVerificationMutationArgs {
-  phoneNumber: string;
-}
-
 export interface UpdateMyProfileMutationArgs {
   firstName: string | null;
   lastName: string | null;
@@ -168,20 +174,27 @@ export interface UpdateMyProfileMutationArgs {
   age: number | null;
 }
 
+export interface CompleteEmailVerificationMutationArgs {
+  key: string;
+}
+
+export interface CompletePhoneVerificationMutationArgs {
+  phoneNumber: string;
+  key: string;
+}
+
+export interface StartPhoneVerificationMutationArgs {
+  phoneNumber: string;
+}
+
 export interface AddPlaceResponse {
   ok: boolean;
   error: string | null;
 }
 
-export interface CompleteEmailVerificationResponse {
+export interface DeletePlaceResponse {
   ok: boolean;
   error: string | null;
-}
-
-export interface CompletePhoneVerificationResponse {
-  ok: boolean;
-  error: string | null;
-  token: string | null;
 }
 
 export interface EditPlaceResponse {
@@ -212,6 +225,27 @@ export interface ReportMovementResponse {
   error: string | null;
 }
 
+export interface ToggleDrivingModeResponse {
+  ok: boolean;
+  error: string | null;
+}
+
+export interface UpdateMyProfileResponse {
+  ok: boolean;
+  error: string | null;
+}
+
+export interface CompleteEmailVerificationResponse {
+  ok: boolean;
+  error: string | null;
+}
+
+export interface CompletePhoneVerificationResponse {
+  ok: boolean;
+  error: string | null;
+  token: string | null;
+}
+
 export interface RequestEmailVerificationResponse {
   ok: boolean;
   error: string | null;
@@ -222,14 +256,8 @@ export interface StartPhoneVerificationResponse {
   error: string | null;
 }
 
-export interface ToggleDrivingModeResponse {
-  ok: boolean;
-  error: string | null;
-}
-
-export interface UpdateMyProfileResponse {
-  ok: boolean;
-  error: string | null;
+export interface Subscription {
+  DriverSubscription: User | null;
 }
 
 export interface Verification {

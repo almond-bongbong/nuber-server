@@ -1,5 +1,6 @@
 import cors from 'cors';
 import { NextFunction, Response } from 'express';
+import { PostgresPubSub } from 'graphql-postgres-subscriptions';
 import { GraphQLServer } from 'graphql-yoga';
 import helmet from 'helmet';
 import logger from 'morgan';
@@ -8,11 +9,19 @@ import decodeJWT from './utils/decodeJWT';
 
 class App {
   public app:GraphQLServer;
+  public pubSub:any;
 
   constructor() {
+    this.pubSub = new PostgresPubSub({
+      user: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      host: process.env.DB_ENDPOINT,
+      database: 'nuber',
+      port: 5432,
+    });
     this.app = new GraphQLServer({
       schema,
-      context: req => ({ req: req.request }),
+      context: req => ({ req: req.request, pubSub: this.pubSub }),
     });
     this.middlewares();
   }

@@ -39,6 +39,9 @@ class Place extends BaseEntity {
 
   @UpdateDateColumn()
   updatedAt:string;
+
+  @Column({ type: 'timestamp', nullable: true })
+  deletedAt:string;
 }
 
 export default Place;

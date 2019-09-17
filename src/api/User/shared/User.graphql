@@ -1,6 +1,7 @@
 enum PlatForm {
     FACEBOOK
     KAKAO
+    EMAIL
 }
 
 type User {

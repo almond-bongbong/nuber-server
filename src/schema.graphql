@@ -15,6 +15,50 @@ type Message {
   updatedAt: String
 }
 
+type AddPlaceResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  AddPlace(name: String!, lat: Float!, lng: Float!, address: String!, isFav: Boolean!): AddPlaceResponse!
+  DeletePlace(placeId: Int!): DeletePlaceResponse!
+  EditPlace(placeId: Int!, name: String, isFav: Boolean): EditPlaceResponse!
+  EmailSignIn(email: String!, password: String!): EmailSignInResponse
+  EmailSignUp(firstName: String!, lastName: String!, email: String!, password: String!, profilePhoto: String!, age: Int!, phoneNumber: String!): EmailSignUpResponse!
+  FacebookConnect(firstName: String!, lastName: String!, email: String, fbId: String!): FacebookConnectResponse
+  ReportMovement(orientation: Float, lat: Float, lng: Float): ReportMovementResponse!
+  ToggleDrivingMode: ToggleDrivingModeResponse!
+  UpdateMyProfile(firstName: String, lastName: String, email: String, password: String, profilePhoto: String, age: Int): UpdateMyProfileResponse!
+  CompleteEmailVerification(key: String!): CompleteEmailVerificationResponse
+  CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse
+  RequestEmailVerification: RequestEmailVerificationResponse!
+  StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!
+}
+
+type DeletePlaceResponse {
+  ok: Boolean!
+  error: String
+}
+
+type EditPlaceResponse {
+  ok: Boolean!
+  error: String
+}
+
+type GetMyPlacesResponse {
+  ok: Boolean!
+  error: String
+  places: [Place]
+}
+
+type Query {
+  GetMyPlaces: GetMyPlacesResponse!
+  GetMyProfile: GetMyProfileResponse!
+  GetNearbyDrivers: GetNearbyDriversResponse
+  user: User
+}
+
 type Place {
   id: Int!
   name: String!
@@ -31,11 +75,11 @@ type Ride {
   id: Int!
   status: String!
   pickUpAddress: String!
-  pickUpLat: String!
-  pickUpLng: String!
+  pickUpLat: Float!
+  pickUpLng: Float!
   dropOffAddress: String!
-  dropOffLat: String!
-  dropOffLng: String!
+  dropOffLat: Float!
+  dropOffLng: Float!
   price: Float!
   distance: String!
   duration: String!
@@ -45,40 +89,8 @@ type Ride {
   updatedAt: String
 }
 
-type AddPlaceResponse {
-  ok: Boolean!
-  error: String
-}
-
-type Mutation {
-  AddPlace(name: String!, lat: Float!, lng: Float!, address: String!, isFav: Boolean!): AddPlaceResponse!
-  CompleteEmailVerification(key: String!): CompleteEmailVerificationResponse
-  CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse
-  EditPlace(placeId: Int!, name: String, isFav: Boolean): EditPlaceResponse!
-  EmailSignIn(email: String!, password: String!): EmailSignInResponse
-  EmailSignUp(firstName: String!, lastName: String!, email: String!, password: String!, profilePhoto: String!, age: Int!, phoneNumber: String!): EmailSignUpResponse!
-  FacebookConnect(firstName: String!, lastName: String!, email: String, fbId: String!): FacebookConnectResponse
-  ReportMovement(orientation: Float, lat: Float, lng: Float): ReportMovementResponse!
-  RequestEmailVerification: RequestEmailVerificationResponse!
-  StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!
-  ToggleDrivingMode: ToggleDrivingModeResponse!
-  UpdateMyProfile(firstName: String, lastName: String, email: String, password: String, profilePhoto: String, age: Int): UpdateMyProfileResponse!
-}
-
-type CompleteEmailVerificationResponse {
-  ok: Boolean!
-  error: String
-}
-
-type CompletePhoneVerificationResponse {
-  ok: Boolean!
-  error: String
-  token: String
-}
-
-type EditPlaceResponse {
-  ok: Boolean!
-  error: String
+type Subscription {
+  DriverSubscription: User
 }
 
 type EmailSignInResponse {
@@ -105,9 +117,10 @@ type GetMyProfileResponse {
   user: User
 }
 
-type Query {
-  GetMyProfile: GetMyProfileResponse!
-  user: User
+type GetNearbyDriversResponse {
+  ok: Boolean!
+  error: String
+  drivers: [User]
 }
 
 type ReportMovementResponse {
@@ -115,14 +128,10 @@ type ReportMovementResponse {
   error: String
 }
 
-type RequestEmailVerificationResponse {
-  ok: Boolean!
-  error: String
-}
-
 enum PlatForm {
   FACEBOOK
   KAKAO
+  EMAIL
 }
 
 type User {
@@ -153,17 +162,28 @@ type User {
   updatedAt: String
 }
 
-type StartPhoneVerificationResponse {
-  ok: Boolean!
-  error: String
-}
-
 type ToggleDrivingModeResponse {
   ok: Boolean!
   error: String
 }
 
 type UpdateMyProfileResponse {
+  ok: Boolean!
+  error: String
+}
+
+type CompleteEmailVerificationResponse {
+  ok: Boolean!
+  error: String
+}
+
+type CompletePhoneVerificationResponse {
+  ok: Boolean!
+  error: String
+  token: String
+}
+
+type RequestEmailVerificationResponse {
   ok: Boolean!
   error: String
 }
@@ -176,4 +196,9 @@ type Verification {
   verified: Boolean!
   createdAt: String!
   updatedAt: String
+}
+
+type StartPhoneVerificationResponse {
+  ok: Boolean!
+  error: String
 }

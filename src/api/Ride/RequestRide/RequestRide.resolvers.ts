@@ -9,20 +9,30 @@ const resolvers:Resolvers = {
   Mutation: {
     RequestRide: authResolver(async (_, args:RequestRideMutationArgs, { req, pubSub }):Promise<RequestRideResponse> => {
       const user:User = req.user;
-      try {
-        const ride = await Ride.create({ ...args, passenger: user }).save();
-        pubSub.publish('rideRequest', { RideSubscription: toJSON(ride) });
-        return {
-          ok: true,
-          error: null,
-          ride,
-        };
-      } catch (e) {
-        return {
-          ok: false,
-          error: e.message,
-          ride: null,
-        };
+
+      if (!user.isRiding && !user.isDriving) {
+        try {
+          const ride = await Ride.create({ ...args, passenger: user }).save();
+          pubSub.publish('rideRequest', { NearByRideSubscription: toJSON(ride) });
+          user.isRiding = true;
+          await user.save();
+          return {
+            ok: true,
+            error: null,
+            ride,
+          };
+        } catch (e) {
+          return {
+            ok: false,
+            error: e.message,
+            ride: null,
+          };
+        }
+      }
+      return {
+        ok: false,
+        error: 'You can\'t request two rides',
+        ride: null,
       }
     }),
   },

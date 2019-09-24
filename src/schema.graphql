@@ -14,32 +14,21 @@ type Query {
   user: User
 }
 
-type Chat {
-  id: Int!
-  messages: [Message]
-  passengerId: Int!
-  passenger: User!
-  driverId: Int!
-  driver: User!
-  createdAt: String!
-  updatedAt: String
+type Subscription {
+  MessageSubscription: Message
+  NearByRideSubscription: Ride
+  RideStatusSubscription: Ride
+  DriverSubscription: User
 }
 
-type Message {
-  id: Int!
-  text: String!
-  chat: Chat!
-  user: User!
-  createdAt: String!
-  updatedAt: String
-}
-
-type AddPlaceResponse {
+type SendChatMessageResponse {
   ok: Boolean!
   error: String
+  message: Message
 }
 
 type Mutation {
+  SendChatMessage(chatId: Int!, text: String!): SendChatMessageResponse!
   AddPlace(name: String!, lat: Float!, lng: Float!, address: String!, isFav: Boolean!): AddPlaceResponse!
   DeletePlace(placeId: Int!): DeletePlaceResponse!
   EditPlace(placeId: Int!, name: String, isFav: Boolean): EditPlaceResponse!
@@ -55,6 +44,34 @@ type Mutation {
   CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse
   RequestEmailVerification: RequestEmailVerificationResponse!
   StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!
+}
+
+type Chat {
+  id: Int!
+  rideId: Int!
+  ride: Ride!
+  messages: [Message]
+  passengerId: Int!
+  passenger: User!
+  driverId: Int!
+  driver: User!
+  createdAt: String!
+  updatedAt: String
+}
+
+type Message {
+  id: Int!
+  text: String!
+  chatId: Int!
+  chat: Chat!
+  user: User!
+  createdAt: String!
+  updatedAt: String
+}
+
+type AddPlaceResponse {
+  ok: Boolean!
+  error: String
 }
 
 type DeletePlaceResponse {
@@ -97,12 +114,6 @@ type GetRideResponse {
   ride: Ride
 }
 
-type Subscription {
-  NearByRideSubscription: Ride
-  RideStatusSubscription: Ride
-  DriverSubscription: User
-}
-
 type RequestRideResponse {
   ok: Boolean!
   error: String
@@ -125,6 +136,8 @@ type Ride {
   passenger: User!
   driverId: Int
   driver: User!
+  chatId: Int
+  chat: Chat
   createdAt: String!
   updatedAt: String
 }

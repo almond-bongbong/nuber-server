@@ -5,5 +5,5 @@ type GetNearbyDriversResponse {
 }
 
 type Query {
-    GetNearbyDrivers : GetNearbyDriversResponse
+    GetNearbyDrivers : GetNearbyDriversResponse!
 }

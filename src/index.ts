@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
+import fs from 'fs';
 import { Options } from 'graphql-yoga';
 import { createConnection } from 'typeorm';
 import app from './app';
@@ -16,6 +17,12 @@ const appOptions:Options = {
   port: PORT,
   playground: PLAYGROUND,
   endpoint: GRAPHQL_ENDPOINT,
+  ...process.env.NODE_ENV === 'development' && {
+    https: {
+      key: fs.readFileSync('../server.key'),
+      cert: fs.readFileSync('../server.cert')
+    }
+  },
   subscriptions: {
     path: SUBSCRIPTION_ENDPOINT,
     onConnect: async (connectionParams) => {

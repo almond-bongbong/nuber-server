@@ -10,7 +10,7 @@ type Query {
   GetNearByRide: GetNearByRideResponse!
   GetRide(rideId: Int!): GetRideResponse!
   GetMyProfile: GetMyProfileResponse!
-  GetNearbyDrivers: GetNearbyDriversResponse
+  GetNearbyDrivers: GetNearbyDriversResponse!
   user: User
 }
 
@@ -36,7 +36,7 @@ type Mutation {
   UpdateRideStatus(rideId: Int!, status: StatusOption!): UpdateRideStatusResponse!
   EmailSignIn(email: String!, password: String!): EmailSignInResponse
   EmailSignUp(firstName: String!, lastName: String!, email: String!, password: String!, profilePhoto: String!, age: Int!, phoneNumber: String!): EmailSignUpResponse!
-  FacebookConnect(firstName: String!, lastName: String!, email: String, fbId: String!): FacebookConnectResponse
+  FacebookConnect(firstName: String!, lastName: String!, email: String, fbId: String!): FacebookConnectResponse!
   ReportMovement(orientation: Float, lat: Float, lng: Float): ReportMovementResponse!
   ToggleDrivingMode: ToggleDrivingModeResponse!
   UpdateMyProfile(firstName: String, lastName: String, email: String, password: String, profilePhoto: String, age: Int): UpdateMyProfileResponse!

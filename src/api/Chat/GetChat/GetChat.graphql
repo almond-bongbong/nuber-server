@@ -7,5 +7,5 @@ type GetChatResponse {
 type Query {
     GetChat(
         chatId: Int!
-    ) : GetChatResponse
+    ) : GetChatResponse!
 }

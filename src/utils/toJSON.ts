@@ -4,7 +4,7 @@ export default (object) => {
 
   Object.entries(Object.getOwnPropertyDescriptors(proto))
     .filter(([_, descriptor]) => typeof descriptor.get === 'function')
-    .map(([key, descriptor]) => {
+    .forEach(([key, descriptor]) => {
       if (descriptor && key[0] !== '_') {
         try {
           jsonObj[key] = (object as any)[key];

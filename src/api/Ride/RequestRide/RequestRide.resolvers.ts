@@ -13,7 +13,7 @@ const resolvers:Resolvers = {
       if (!user.isRiding && !user.isDriving) {
         try {
           const ride = await Ride.create({ ...args, passenger: user }).save();
-          pubSub.publish('rideRequest', { NearByRideSubscription: toJSON(ride) });
+          pubSub.publish('rideRequest', { NearByRideSubscription: { ...ride, passenger: toJSON(ride.passenger) } });
           user.isRiding = true;
           await user.save();
           return {

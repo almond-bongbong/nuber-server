@@ -4,6 +4,7 @@ import User from '../../../entities/User';
 import { UpdateRideStatusMutationArgs, UpdateRideStatusResponse } from '../../../types/graph';
 import { Resolvers } from '../../../types/resolvers';
 import authResolver from '../../../utils/authResolver';
+import toJSON from '../../../utils/toJSON';
 
 const resolvers:Resolvers = {
   Mutation: {
@@ -16,9 +17,9 @@ const resolvers:Resolvers = {
 
           if (args.status === 'ACCEPTED') {
             ride = await Ride.findOne(
-              { id: args.rideId, status: 'REQUESTING' },
-              { relations: ['passenger'] },
-              );
+              {id: args.rideId, status: 'REQUESTING'},
+              {relations: ['passenger']},
+            );
             if (ride) {
               ride.driver = user;
               user.isTaken = true;
@@ -29,13 +30,30 @@ const resolvers:Resolvers = {
               }).save();
             }
           } else {
-            ride = await Ride.findOne({ id: args.rideId, driver: user });
+            ride = await Ride.findOne(
+              { id: args.rideId, driver: user },
+              { relations: ['passenger', 'driver'] },
+            );
           }
 
           if (ride) {
             ride.status = args.status;
             const savedRide = await ride.save();
-            pubSub.publish('rideUpdate', { RideStatusSubscription: savedRide });
+            pubSub.publish('rideUpdate', { RideStatusSubscription: {
+                ...savedRide,
+                passenger: toJSON(savedRide.passenger),
+                driver: toJSON(savedRide.driver),
+            }, });
+
+            if (args.status === 'FINISHED') {
+              const passenger = ride.passenger;
+              const driver = ride.driver;
+              driver.isTaken = false;
+              passenger.isRiding = false;
+              await driver.save();
+              await passenger.save();
+            }
+
             return {
               ok: true,
               error: null,

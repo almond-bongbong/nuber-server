@@ -21,7 +21,7 @@ const appOptions:Options = {
     https: {
       key: fs.readFileSync('../server.key'),
       cert: fs.readFileSync('../server.cert')
-    }
+    },
   },
   subscriptions: {
     path: SUBSCRIPTION_ENDPOINT,

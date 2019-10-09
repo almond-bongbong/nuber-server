@@ -8,5 +8,5 @@ type Mutation {
     EmailSignIn(
         email: String!
         password: String!
-    ): EmailSignInResponse
+    ): EmailSignInResponse!
 }

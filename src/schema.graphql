@@ -5,7 +5,7 @@ type GetChatResponse {
 }
 
 type Query {
-  GetChat(chatId: Int!): GetChatResponse
+  GetChat(chatId: Int!): GetChatResponse!
   GetMyPlaces: GetMyPlacesResponse!
   GetNearByRide: GetNearByRideResponse!
   GetRide(rideId: Int!): GetRideResponse!
@@ -34,7 +34,7 @@ type Mutation {
   EditPlace(placeId: Int!, name: String, isFav: Boolean): EditPlaceResponse!
   RequestRide(pickUpAddress: String!, pickUpLat: Float!, pickUpLng: Float!, dropOffAddress: String!, dropOffLat: Float!, dropOffLng: Float!, price: Float!, distance: String!, duration: String!): RequestRideResponse!
   UpdateRideStatus(rideId: Int!, status: StatusOption!): UpdateRideStatusResponse!
-  EmailSignIn(email: String!, password: String!): EmailSignInResponse
+  EmailSignIn(email: String!, password: String!): EmailSignInResponse!
   EmailSignUp(firstName: String!, lastName: String!, email: String!, password: String!, profilePhoto: String!, age: Int!, phoneNumber: String!): EmailSignUpResponse!
   FacebookConnect(firstName: String!, lastName: String!, email: String, fbId: String!): FacebookConnectResponse!
   ReportMovement(orientation: Float, lat: Float, lng: Float): ReportMovementResponse!
@@ -64,6 +64,7 @@ type Message {
   text: String!
   chatId: Int!
   chat: Chat!
+  userId: Int!
   user: User!
   createdAt: String!
   updatedAt: String
@@ -135,7 +136,7 @@ type Ride {
   passengerId: Int!
   passenger: User!
   driverId: Int
-  driver: User!
+  driver: User
   chatId: Int
   chat: Chat
   createdAt: String!

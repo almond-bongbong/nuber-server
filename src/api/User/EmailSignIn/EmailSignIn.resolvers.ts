@@ -9,7 +9,7 @@ const resolvers:Resolvers = {
       const { email, password } = args;
 
       try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email, platform: 'EMAIL' });
         if (!user) {
           return {
             ok: false,

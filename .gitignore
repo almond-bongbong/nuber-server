@@ -64,3 +64,5 @@ typings/
 
 server.cert
 server.key
+
+build

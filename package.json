@@ -10,7 +10,7 @@
     "types": "graphql-to-typescript ./src/schema.graphql ./src/types/graph.d.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild": "rm -rf build",
-    "build": "tsc",
+    "build": "./node_modules/typescript/bin/tsc",
     "postbuild": "cd src && copy ./api/**/*.graphql ../build/api",
     "start": "cd build && node ."
   },

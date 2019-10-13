@@ -65,7 +65,7 @@ typings/
 server.cert
 server.key
 
-build
+#build
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

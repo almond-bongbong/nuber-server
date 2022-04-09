@@ -50,7 +50,7 @@
     "jsonwebtoken": "^8.5.1",
     "mailgun-js": "^0.22.0",
     "merge-graphql-schemas": "^1.7.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "morgan": "^1.9.1",
     "pg": "^7.12.1",
     "twilio": "^3.34.0",

@@ -45,7 +45,7 @@
     "dotenv": "^8.1.0",
     "graphql-postgres-subscriptions": "^1.0.5",
     "graphql-tools": "^4.0.5",
-    "graphql-yoga": "^1.18.3",
+    "graphql-yoga": "^4.0.4",
     "helmet": "^3.21.0",
     "jsonwebtoken": "^9.0.0",
     "mailgun-js": "^0.22.0",
